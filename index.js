@@ -30,7 +30,7 @@ function openDialog(urls) {
         return Alert.alert(
           '选择地图',
           '',
-          data,
+          [...data, {text: '取消', onPress: () => {}],
           { cancelable: true }
         )
         return
