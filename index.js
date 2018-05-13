@@ -9,21 +9,33 @@ function openDialog(urls) {
       }).then(choices => {
         // 系统内没有任何地图, 推荐下载一个
         if (choices.length < 1) {
-          return ActionSheetIOS.showActionSheetWithOptions({
-            options: ['下载高德地图', '下载百度地图', '取消'],
-            cancelButtonIndex: 2,
-            title: '选择地图',
-          }, buttonIndex => {
-            if (buttonIndex === 0) {
-              Linking.openURL('https://itunes.apple.com/cn/app/gao-tu-zhuan-ye-shou-ji-tu/id461703208?mt=8');
-            } else if (buttonIndex === 1) {
-              Linking.openURL('https://itunes.apple.com/cn/app/bai-du-tu-shou-ji-tu-lu-xian/id452186370?mt=8');
-            }
-          });
+          return Alert.alert(
+            '',
+            '您没有安装任何地图',
+            [
+              {text: '确定', onPress: () => {}},
+              ],
+            { cancelable: false }
+          )
         }
 
-        return ActionSheetIOS.showActionSheetWithOptions({
-          options: [...(choices.map(element => element[0])), '取消'],
+        const oprionts = (choices.map(element => element[0]))
+        let data = []
+        choices.map((element, index) => {
+          data.push({
+            text: element[0],
+            onPress: () => Linking.openURL(element[1])
+          })
+        })
+        return Alert.alert(
+          '选择地图',
+          '',
+          data,
+          { cancelable: true }
+        )
+        return
+        ActionSheetIOS.showActionSheetWithOptions({
+          options: [...oprionts, '取消'],
           cancelButtonIndex: choices.length,
           title: '选择地图',
         }, buttonIndex => {
