@@ -58,8 +58,6 @@ function openDialog(urls) {
         // 系统内没有任何地图, 推荐下载一个
         if (choices.length < 1) {
           return Alert.alert('选择地图', '您还没有安装地图软件。', [
-            { text: '下载高德地图', onPress: () => Linking.openURL('http://mobile.amap.com') },
-            { text: '下载百度地图', onPress: () => Linking.openURL('http://map.baidu.com') },
             { text: '取消' }
           ]);
         }
